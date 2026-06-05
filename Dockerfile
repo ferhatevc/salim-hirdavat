@@ -1,15 +1,18 @@
 FROM php:8.3-cli
 
-# PDO MySQL ve diğer eklentiler
-RUN docker-php-ext-install pdo pdo_mysql
+# Sistem bağımlılıkları
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libcurl4-openssl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# GD eklentisi
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+# PHP eklentileri
+RUN docker-php-ext-install pdo pdo_mysql mbstring
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd
-
-# Diğer eklentiler
-RUN docker-php-ext-install mbstring fileinfo
 
 # Çalışma dizini
 WORKDIR /app
