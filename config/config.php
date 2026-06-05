@@ -64,7 +64,7 @@ define('DEFAULT_DELIVERY_FEE', 30); // ₺
 
 // Para birimi
 define('CURRENCY', 'TRY');
-define('CURRENCY_SYMBOL', '₺');
+if (!defined('CURRENCY_SYMBOL')) define('CURRENCY_SYMBOL', '₺');
 define('TAX_RATE', 20); // KDV %
 
 // Güvenlik

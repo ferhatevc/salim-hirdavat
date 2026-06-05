@@ -46,7 +46,7 @@ class Database {
             $this->pdo->exec("SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci");
         } catch (PDOException $e) {
             error_log("Veritabanı bağlantı hatası: " . $e->getMessage());
-            die("Sistem hatası oluştu. Lütfen daha sonra tekrar deneyin.");
+            die("DB Hatası: " . $e->getMessage() . " | Host: " . DB_HOST . " | DB: " . DB_NAME . " | User: " . DB_USER . " | Port: " . DB_PORT);
         }
     }
 
