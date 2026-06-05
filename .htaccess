@@ -1,0 +1,139 @@
+# =====================================================
+# Salim Hırdavat - Apache Yapılandırması
+# =====================================================
+
+# UTF-8 Karakter Seti
+AddDefaultCharset UTF-8
+
+# Dizin listelemesini kapat
+Options -Indexes
+
+# Hata sayfaları
+ErrorDocument 404 /pages/404.php
+ErrorDocument 500 /pages/500.php
+
+# ── Güvenlik Başlıkları ──
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# ── HTTPS Yönlendirme ──
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+# </IfModule>
+
+# ── www Yönlendirme ──
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+#     RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+# </IfModule>
+
+# ── URL Rewrite Kuralları ──
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Mevcut dosya ve dizinleri atla
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # SEO Dostu URL'ler
+    # /urun/makita-matkap-450w -> pages/product-detail.php?slug=makita-matkap-450w
+    RewriteRule ^urun/([a-zA-Z0-9\-]+)/?$ pages/product-detail.php?slug=$1 [L,QSA]
+    
+    # /kategori/elektrik-malzemeleri -> pages/category.php?slug=elektrik-malzemeleri
+    RewriteRule ^kategori/([a-zA-Z0-9\-]+)/?$ pages/products.php?category=$1 [L,QSA]
+    
+    # /kategori/elektrik-malzemeleri/sayfa/2
+    RewriteRule ^kategori/([a-zA-Z0-9\-]+)/sayfa/([0-9]+)/?$ pages/products.php?category=$1&page=$2 [L,QSA]
+    
+    # /urunler -> pages/products.php
+    RewriteRule ^urunler/?$ pages/products.php [L,QSA]
+    RewriteRule ^urunler/sayfa/([0-9]+)/?$ pages/products.php?page=$1 [L,QSA]
+    
+    # /ara?q=arama -> pages/products.php?q=arama (arama)
+    RewriteRule ^ara/?$ pages/products.php [L,QSA]
+    
+    # /sepet -> pages/cart.php
+    RewriteRule ^sepet/?$ pages/cart.php [L,QSA]
+    
+    # /odeme -> pages/checkout.php
+    RewriteRule ^odeme/?$ pages/checkout.php [L,QSA]
+    
+    # /hesabim -> pages/account.php
+    RewriteRule ^hesabim/?$ pages/account.php [L,QSA]
+    
+    # /siparislerim -> pages/orders.php
+    RewriteRule ^siparislerim/?$ pages/orders.php [L,QSA]
+    
+    # /giris -> pages/login.php
+    RewriteRule ^giris/?$ pages/login.php [L,QSA]
+    
+    # /kayit -> pages/register.php
+    RewriteRule ^kayit/?$ pages/register.php [L,QSA]
+    
+    # /iletisim -> pages/contact.php
+    RewriteRule ^iletisim/?$ pages/contact.php [L,QSA]
+    
+    # /hakkimizda -> pages/about.php
+    RewriteRule ^hakkimizda/?$ pages/about.php [L,QSA]
+</IfModule>
+
+# ── Gzip Sıkıştırma ──
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ── Tarayıcı Önbellekleme ──
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType application/x-font-woff "access plus 1 month"
+    ExpiresByType application/x-font-woff2 "access plus 1 month"
+</IfModule>
+
+# ── Hassas Dosyaları Koru ──
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# config, sql, logs dizinlerine erişimi engelle
+<IfModule mod_rewrite.c>
+    RewriteRule ^config/ - [F,L]
+    RewriteRule ^sql/ - [F,L]
+    RewriteRule ^logs/ - [F,L]
+    RewriteRule ^includes/ - [F,L]
+    RewriteRule ^vendor/ - [F,L]
+</IfModule>
+
+# PHP ayarları
+<IfModule mod_php.c>
+    php_value upload_max_filesize 50M
+    php_value post_max_size 55M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+    php_value memory_limit 256M
+    php_flag display_errors off
+    php_flag log_errors on
+</IfModule>

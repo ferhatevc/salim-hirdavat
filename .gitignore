@@ -1,0 +1,29 @@
+# Salim Hırdavat - Dependencies
+/vendor/
+/node_modules/
+
+# Environment & Config (hassas bilgiler)
+.env
+
+# Uploads (kullanıcı yüklemeleri)
+/uploads/products/*
+/uploads/categories/*
+!/uploads/.gitkeep
+!/uploads/products/.gitkeep
+!/uploads/categories/.gitkeep
+
+# Logs
+/logs/*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Demo
+demo.html
