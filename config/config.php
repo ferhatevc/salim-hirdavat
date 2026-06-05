@@ -25,7 +25,7 @@ define('SITE_DESCRIPTION', 'Sivas\'ın En Büyük Hırdavat Mağazası');
 $railwayUrl = getenv('RAILWAY_PUBLIC_DOMAIN') ? 'https://' . getenv('RAILWAY_PUBLIC_DOMAIN') : '';
 define('SITE_URL', getenv('SITE_URL') ?: $railwayUrl ?: 'http://localhost:8080');
 
-define('SITE_EMAIL', getenv('SITE_EMAIL') ?: 'info@salimhirdavat.com.tr');
+define('SITE_EMAIL', getenv('SITE_EMAIL') ?: 'info@xn--salimhrdavat-64b.com');
 define('SITE_PHONE', getenv('SITE_PHONE') ?: '0346 218 12 34');
 define('SITE_WHATSAPP', getenv('SITE_WHATSAPP') ?: '905XXXXXXXXX');
 define('SITE_ADDRESS', getenv('SITE_ADDRESS') ?: 'Organize Sanayi Bölgesi, Sivas');
