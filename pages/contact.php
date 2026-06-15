@@ -32,12 +32,16 @@ require_once __DIR__ . '/../includes/header.php';
             <div class="contact-card">
                 <i class="fas fa-map-marker-alt"></i>
                 <h4>Adres</h4>
+                <p><strong><?= defined('SITE_COMPANY') ? SITE_COMPANY : '' ?></strong></p>
                 <p><?= SITE_ADDRESS ?></p>
+                <p><?= SITE_CITY ?></p>
             </div>
             <div class="contact-card">
                 <i class="fas fa-phone-alt"></i>
                 <h4>Telefon</h4>
-                <p><a href="tel:<?= SITE_PHONE ?>" style="color: var(--primary);"><?= SITE_PHONE ?></a></p>
+                <p><a href="tel:+903462223470" style="color: var(--primary);">Tel: <?= SITE_PHONE ?></a></p>
+                <p><a href="tel:+903462223471" style="color: var(--primary);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?= defined('SITE_PHONE2') ? SITE_PHONE2 : '' ?></a></p>
+                <p style="margin-top: 8px;">Fax: <?= defined('SITE_FAX') ? SITE_FAX : '' ?></p>
             </div>
             <div class="contact-card">
                 <i class="fas fa-envelope"></i>
