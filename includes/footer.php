@@ -56,11 +56,15 @@
                     <ul class="footer-contact">
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
-                            <span><?= SITE_ADDRESS ?></span>
+                            <span><?= SITE_ADDRESS ?><br><?= SITE_CITY ?></span>
                         </li>
                         <li>
                             <i class="fas fa-phone-alt"></i>
-                            <span><a href="tel:<?= SITE_PHONE ?>" style="color: var(--gray-400);"><?= SITE_PHONE ?></a></span>
+                            <span>
+                                <a href="tel:+903462223470" style="color: var(--gray-400);">Tel: <?= SITE_PHONE ?></a><br>
+                                <a href="tel:+903462223471" style="color: var(--gray-400);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?= SITE_PHONE2 ?></a><br>
+                                <span style="color: var(--gray-500);">Fax: <?= SITE_FAX ?></span>
+                            </span>
                         </li>
                         <li>
                             <i class="fas fa-envelope"></i>

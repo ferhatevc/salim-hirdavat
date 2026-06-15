@@ -25,12 +25,12 @@ define('SITE_DESCRIPTION', 'Sivas\'ın En Büyük Hırdavat Mağazası');
 $railwayUrl = getenv('RAILWAY_PUBLIC_DOMAIN') ? 'https://' . getenv('RAILWAY_PUBLIC_DOMAIN') : '';
 define('SITE_URL', getenv('SITE_URL') ?: $railwayUrl ?: 'http://localhost:8080');
 
-define('SITE_EMAIL', getenv('SITE_EMAIL') ?: 'info@salimhirdavat.com.tr');
-define('SITE_PHONE', getenv('SITE_PHONE') ?: '(346) 222 34 70');
+define('SITE_EMAIL', 'info@salimhirdavat.com.tr');
+define('SITE_PHONE', '(346) 222 34 70');
 define('SITE_PHONE2', '(346) 222 34 71');
 define('SITE_FAX', '(346) 223 10 82');
-define('SITE_WHATSAPP', getenv('SITE_WHATSAPP') ?: '903462223470');
-define('SITE_ADDRESS', getenv('SITE_ADDRESS') ?: 'Gültepe Mah. 4 Eylül San. Böl. 53-2 Sanayi Cad. No:30');
+define('SITE_WHATSAPP', '903462223470');
+define('SITE_ADDRESS', 'Gültepe Mah. 4 Eylül San. Böl. 53-2 Sanayi Cad. No:30');
 define('SITE_COMPANY', 'SALİM HIRDAVAT SAN.TİC.LTD.ŞTİ.');
 define('SITE_CITY', 'Sivas/Merkez');
 
