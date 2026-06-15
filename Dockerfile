@@ -25,4 +25,4 @@ RUN mkdir -p /app/logs /app/uploads/products
 EXPOSE 8080
 
 # PHP built-in server
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "/app"]
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "/app", "/app/router.php"]
