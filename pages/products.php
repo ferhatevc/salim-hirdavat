@@ -90,7 +90,7 @@ $products = db()->fetchAll(
 
 // Sidebar verileri
 $allCategories = getCategoryTree();
-$brands = db()->fetchAll("SELECT b.*, COUNT(p.id) as product_count FROM brands b JOIN products p ON b.brand_id = b.id WHERE p.is_active = 1 GROUP BY b.id ORDER BY b.name LIMIT 30");
+$brands = db()->fetchAll("SELECT b.*, COUNT(p.id) as product_count FROM brands b JOIN products p ON p.brand_id = b.id WHERE p.is_active = 1 GROUP BY b.id ORDER BY b.name LIMIT 30");
 
 // Sayfa başlığı
 $pageTitle = 'Ürünler';
