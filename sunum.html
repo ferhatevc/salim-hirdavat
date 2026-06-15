@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salim Hırdavat - E-Ticaret Platformu Sunumu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a0f1a; color: #fff; overflow: hidden; height: 100vh; }
+        
+        .slide { display: none; min-height: 100vh; padding: 40px 60px; position: relative; }
+        .slide.active { display: flex; flex-direction: column; justify-content: center; }
+        
+        /* Slide backgrounds */
+        .slide-dark { background: linear-gradient(135deg, #0a0f1a 0%, #1a2332 50%, #0d1520 100%); }
+        .slide-gradient { background: linear-gradient(135deg, #1a2332 0%, #2d1a1a 100%); }
+        .slide-red { background: linear-gradient(135deg, #8B0000 0%, #CC0000 50%, #8B0000 100%); }
+        .slide-navy { background: linear-gradient(135deg, #0d1520 0%, #1a2a3d 100%); }
+
+        /* Decorative elements */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(204,0,0,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.3);
+            font-weight: 300;
+        }
+
+        .logo-watermark {
+            position: absolute;
+            top: 25px;
+            right: 40px;
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.15);
+            letter-spacing: 2px;
+        }
+
+        /* Typography */
+        h1 { font-size: 52px; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+        h2 { font-size: 38px; font-weight: 800; margin-bottom: 30px; }
+        h3 { font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #CC0000; }
+        p { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.85); }
+        .subtitle { font-size: 22px; color: rgba(255,255,255,0.7); font-weight: 300; }
+        .highlight { color: #CC0000; }
+        .accent { color: #FF4444; }
+        .green { color: #4CAF50; }
+
+        /* Cover slide */
+        .cover-content { text-align: center; }
+        .cover-content h1 { font-size: 72px; letter-spacing: -2px; }
+        .cover-content .tagline { font-size: 28px; color: #CC0000; font-weight: 600; margin-bottom: 40px; }
+        .cover-badge {
+            display: inline-block;
+            background: rgba(204,0,0,0.15);
+            border: 1px solid rgba(204,0,0,0.3);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: #FF6666;
+            margin-bottom: 30px;
+        }
+        .cover-url {
+            font-size: 20px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 30px;
+        }
+        .cover-url a { color: #FF6666; text-decoration: none; }
+        .divider {
+            width: 80px;
+            height: 4px;
+            background: #CC0000;
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-card .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(204,0,0,0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 22px;
+            color: #CC0000;
+        }
+        .stat-card .stat-number {
+            font-size: 42px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .stat-card .stat-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 500;
+        }
+
+        /* Feature list */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .feature-item i {
+            color: #4CAF50;
+            font-size: 16px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        .feature-item span { font-size: 15px; color: rgba(255,255,255,0.8); }
+
+        /* Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { text-align: left; padding: 14px 20px; background: rgba(204,0,0,0.15); color: #FF6666; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        td { padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 15px; color: rgba(255,255,255,0.8); }
+        tr:hover td { background: rgba(255,255,255,0.03); }
+        th:first-child, td:first-child { border-radius: 8px 0 0 8px; }
+        th:last-child, td:last-child { border-radius: 0 8px 8px 0; text-align: right; }
+
+        /* Price cards */
+        .price-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 30px; }
+        .price-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+        .price-card.recommended {
+            border-color: #CC0000;
+            background: rgba(204,0,0,0.08);
+        }
+        .price-card.recommended::before {
+            content: '⭐ ÖNERİLEN';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: #CC0000;
+            color: #fff;
+            padding: 4px 40px;
+            font-size: 11px;
+            font-weight: 700;
+            transform: rotate(45deg);
+        }
+        .price-card h3 { color: rgba(255,255,255,0.6); font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .price-amount { font-size: 48px; font-weight: 900; color: #fff; }
+        .price-amount small { font-size: 20px; font-weight: 400; color: rgba(255,255,255,0.5); }
+        .price-includes { list-style: none; margin-top: 24px; }
+        .price-includes li { padding: 8px 0; font-size: 15px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 10px; }
+        .price-includes li i { color: #4CAF50; font-size: 14px; }
+
+        /* Checklist */
+        .checklist { list-style: none; margin-top: 20px; }
+        .checklist li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 16px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .checklist li .check { color: #4CAF50; font-size: 20px; }
+        .checklist li .num { 
+            background: rgba(204,0,0,0.15); 
+            color: #FF6666; 
+            width: 28px; height: 28px; 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 13px; font-weight: 700; flex-shrink: 0;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 40px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+        }
+        .nav-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: inherit;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .nav-btn:hover { background: rgba(204,0,0,0.3); border-color: #CC0000; }
+        .nav-btn.primary { background: #CC0000; border-color: #CC0000; }
+        .progress-bar {
+            flex: 1;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            margin: 0 30px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-fill { height: 100%; background: #CC0000; transition: width 0.3s; border-radius: 2px; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        .badge-inline {
+            display: inline-block;
+            background: rgba(76,175,80,0.15);
+            color: #4CAF50;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .badge-red {
+            display: inline-block;
+            background: rgba(204,0,0,0.15);
+            color: #FF6666;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .section-label {
+            display: inline-block;
+            background: rgba(204,0,0,0.15);
+            color: #FF6666;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+        .footer-info {
+            position: absolute;
+            bottom: 70px;
+            left: 60px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.3);
+        }
+        @media print { 
+            .nav-bar { display: none; }
+            .slide { display: flex !important; page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: Cover -->
+<div class="slide slide-dark active" id="slide1">
+    <div class="cover-content">
+        <div class="cover-badge">🏪 E-TİCARET PLATFORMU TESLİM SUNUMU</div>
+        <h1>SALİM <span class="highlight">HIRDAVAT</span></h1>
+        <div class="divider"></div>
+        <p class="tagline">Sivas'ın En Büyük Online Hırdavat Mağazası</p>
+        <div class="stats-grid" style="max-width: 800px; margin: 40px auto 0;">
+            <div class="stat-card">
+                <div class="stat-number">11.480</div>
+                <div class="stat-label">Ürün</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">69</div>
+                <div class="stat-label">Kategori</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">436</div>
+                <div class="stat-label">Marka</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Online</div>
+            </div>
+        </div>
+        <div class="cover-url">🌐 <a href="https://xn--salimhrdavat-64b.com" target="_blank">salimhırdavat.com</a></div>
+    </div>
+    <div class="slide-number">1 / 10</div>
+</div>
+
+<!-- SLIDE 2: Problem & Solution -->
+<div class="slide slide-navy" id="slide2">
+    <div class="section-label">Neden E-Ticaret?</div>
+    <h2>Mağazanız Artık <span class="highlight">7/24 Açık</span></h2>
+    <div class="two-col" style="margin-top: 30px;">
+        <div>
+            <h3 style="color: #FF6666;">❌ E-Ticaret Olmadan</h3>
+            <div class="feature-grid" style="grid-template-columns: 1fr;">
+                <div class="feature-item"><i class="fas fa-times" style="color: #FF4444;"></i><span>Sadece mağazaya gelen müşteriye satış</span></div>
+                <div class="feature-item"><i class="fas fa-times" style="color: #FF4444;"></i><span>Mesai saatleriyle sınırlı</span></div>
+                <div class="feature-item"><i class="fas fa-times" style="color: #FF4444;"></i><span>11.480 ürünü tek tek gösterme</span></div>
+                <div class="feature-item"><i class="fas fa-times" style="color: #FF4444;"></i><span>Rakipler online satışa başladı</span></div>
+            </div>
+        </div>
+        <div>
+            <h3 style="color: #4CAF50;">✅ E-Ticaret İle</h3>
+            <div class="feature-grid" style="grid-template-columns: 1fr;">
+                <div class="feature-item"><i class="fas fa-check"></i><span>Tüm Türkiye'ye satış</span></div>
+                <div class="feature-item"><i class="fas fa-check"></i><span>7/24 sipariş alma</span></div>
+                <div class="feature-item"><i class="fas fa-check"></i><span>11.480 ürün online katalog</span></div>
+                <div class="feature-item"><i class="fas fa-check"></i><span>Google'da "Sivas hırdavat" 1. sıra</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">2 / 10</div>
+    <div class="logo-watermark">SALİM HIRDAVAT</div>
+</div>
+
+<!-- SLIDE 3: What We Built -->
+<div class="slide slide-dark" id="slide3">
+    <div class="section-label">Yapılan İşler</div>
+    <h2>Eksiksiz <span class="highlight">E-Ticaret</span> Platformu</h2>
+    <div class="feature-grid" style="margin-top: 20px;">
+        <div class="feature-item"><i class="fas fa-check"></i><span>Modern responsive web sitesi tasarımı</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>11.480 ürün DIA3'ten otomatik aktarım</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>69 kategori otomatik oluşturma</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>436 marka eşleştirme</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>Admin paneli (ürün/sipariş yönetimi)</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>Arama ve filtreleme sistemi</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>Sepet ve sipariş sistemi</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>Kullanıcı kayıt/giriş sistemi</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>Mobil uyumlu tasarım (tüm cihazlar)</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>WhatsApp entegrasyonu</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>SSL sertifikası (güvenli bağlantı)</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>Cloud hosting (Railway - 7/24 aktif)</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>SEO optimizasyonu</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>AI ile profesyonel ürün görselleri</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>İletişim sayfası + Google Maps</span></div>
+        <div class="feature-item"><i class="fas fa-check"></i><span>Hakkımızda sayfası</span></div>
+    </div>
+    <div class="slide-number">3 / 10</div>
+    <div class="logo-watermark">SALİM HIRDAVAT</div>
+</div>
+
+<!-- SLIDE 4: Stats -->
+<div class="slide slide-gradient" id="slide4">
+    <div class="section-label">Rakamlarla</div>
+    <h2>Platform <span class="highlight">İstatistikleri</span></h2>
+    <div class="stats-grid" style="margin-top: 20px;">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-box"></i></div>
+            <div class="stat-number">11.480</div>
+            <div class="stat-label">Aktif Ürün</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-folder"></i></div>
+            <div class="stat-number">69</div>
+            <div class="stat-label">Kategori</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-tags"></i></div>
+            <div class="stat-number">436</div>
+            <div class="stat-label">Marka</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-globe"></i></div>
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Online Erişim</div>
+        </div>
+    </div>
+    <h3 style="margin-top: 40px; color: #FF6666;">En Büyük Kategoriler</h3>
+    <table>
+        <tr><th>Kategori</th><th>Ürün</th></tr>
+        <tr><td>🪑 Mobilya Kulpları</td><td>1.686</td></tr>
+        <tr><td>🔧 El Aletleri</td><td>1.150</td></tr>
+        <tr><td>🚪 Kapı Kulpları</td><td>676</td></tr>
+        <tr><td>🎨 Boyalar</td><td>595</td></tr>
+        <tr><td>⚙️ Mobilya Aksesuarları</td><td>568</td></tr>
+    </table>
+    <div class="slide-number">4 / 10</div>
+    <div class="logo-watermark">SALİM HIRDAVAT</div>
+</div>
+
+<!-- SLIDE 5: DIA Integration -->
+<div class="slide slide-dark" id="slide5">
+    <div class="section-label">DIA3 Entegrasyonu</div>
+    <h2>Stok Sistemi <span class="highlight">Otomatik</span> Aktarıldı</h2>
+    <p style="font-size: 20px; margin-bottom: 30px;">DIA3 yazılımındaki tüm stok kartları siteye otomatik aktarıldı.</p>
+    <div class="two-col">
+        <div>
+            <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 30px; border: 1px solid rgba(255,255,255,0.08);">
+                <h3 style="color: #FF6666; margin-bottom: 20px;"><i class="fas fa-database"></i> DIA3'ten Gelen Veriler</h3>
+                <ul class="checklist" style="margin-top: 0;">
+                    <li><span class="check">✅</span> Ürün adları ve açıklamaları</li>
+                    <li><span class="check">✅</span> Satış fiyatları (FİYAT1)</li>
+                    <li><span class="check">✅</span> Stok miktarları (Fiili Stok)</li>
+                    <li><span class="check">✅</span> Marka bilgileri</li>
+                    <li><span class="check">✅</span> Kategori grupları</li>
+                    <li><span class="check">✅</span> Birim bilgileri (Adet, Metre, Kg)</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div style="background: rgba(204,0,0,0.08); border-radius: 16px; padding: 30px; border: 1px solid rgba(204,0,0,0.2);">
+                <h3 style="color: #FF6666; margin-bottom: 20px;"><i class="fas fa-rocket"></i> Sonuç</h3>
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 64px; font-weight: 900; color: #fff;">11.480</div>
+                    <div style="font-size: 18px; color: rgba(255,255,255,0.6); margin-bottom: 20px;">ürün başarıyla yüklendi</div>
+                    <div class="badge-inline" style="font-size: 16px; padding: 8px 20px;">❌ Hata: 0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide-number">5 / 10</div>
+    <div class="logo-watermark">SALİM HIRDAVAT</div>
+</div>
+
+<!-- SLIDE 6: Mobile -->
+<div class="slide slide-navy" id="slide6">
+    <div class="section-label">Mobil Uyumlu</div>
+    <h2>Her Cihazda <span class="highlight">Mükemmel</span> Görünüm</h2>
+    <div class="stats-grid" style="margin-top: 30px;">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-desktop"></i></div>
+            <div class="stat-number" style="font-size: 28px;">💻</div>
+            <div class="stat-label">Masaüstü</div>
+            <div class="badge-inline" style="margin-top: 8px;">✅ Uyumlu</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-laptop"></i></div>
+            <div class="stat-number" style="font-size: 28px;">💻</div>
+            <div class="stat-label">Laptop</div>
+            <div class="badge-inline" style="margin-top: 8px;">✅ Uyumlu</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-tablet-alt"></i></div>
+            <div class="stat-number" style="font-size: 28px;">📱</div>
+            <div class="stat-label">Tablet</div>
+            <div class="badge-inline" style="margin-top: 8px;">✅ Uyumlu</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-mobile-alt"></i></div>
+            <div class="stat-number" style="font-size: 28px;">📱</div>
+            <div class="stat-label">Telefon</div>
+            <div class="badge-inline" style="margin-top: 8px;">✅ Uyumlu</div>
+        </div>
+    </div>
+    <div style="margin-top: 40px; text-align: center;">
+        <p style="font-size: 20px;">Müşterileriniz <strong>telefondan</strong> sipariş verebilir, <strong>tabletten</strong> ürün inceleyebilir.</p>
+        <p style="font-size: 16px; color: rgba(255,255,255,0.5); margin-top: 10px;">WhatsApp butonu ile anında iletişim 💬</p>
+    </div>
+    <div class="slide-number">6 / 10</div>
+    <div class="logo-watermark">SALİM HIRDAVAT</div>
+</div>
+
+<!-- SLIDE 7: Market Value -->
+<div class="slide slide-dark" id="slide7">
+    <div class="section-label">Piyasa Değeri</div>
+    <h2>Bu Projenin <span class="highlight">Gerçek Değeri</span></h2>
+    <table style="margin-top: 20px;">
+        <tr><th>Kalem</th><th>Piyasa Fiyatı</th></tr>
+        <tr><td>🎨 E-ticaret site tasarımı + kodlama</td><td>25.000 - 40.000 ₺</td></tr>
+        <tr><td>💻 PHP + MySQL backend geliştirme</td><td>20.000 - 35.000 ₺</td></tr>
+        <tr><td>🔗 DIA3 entegrasyonu (11.480 ürün)</td><td>10.000 - 20.000 ₺</td></tr>
+        <tr><td>🛠️ Admin paneli</td><td>10.000 - 20.000 ₺</td></tr>
+        <tr><td>📱 Responsive mobil tasarım</td><td>5.000 - 10.000 ₺</td></tr>
+        <tr><td>☁️ Hosting + domain kurulum</td><td>3.000 - 5.000 ₺</td></tr>
+        <tr><td>🔍 SEO optimizasyonu</td><td>5.000 - 10.000 ₺</td></tr>
+        <tr><td>🎨 AI kategori görselleri</td><td>3.000 - 5.000 ₺</td></tr>
+    </table>
+    <div style="margin-top: 30px; text-align: center; padding: 20px; background: rgba(204,0,0,0.1); border-radius: 12px; border: 1px solid rgba(204,0,0,0.3);">
+        <div style="font-size: 16px; color: rgba(255,255,255,0.6);">TOPLAM PİYASA DEĞERİ</div>
+        <div style="font-size: 48px; font-weight: 900; color: #FF4444;">81.000 - 145.000 ₺</div>
+    </div>
+    <div class="slide-number">7 / 10</div>
+    <div class="logo-watermark">SALİM HIRDAVAT</div>
+</div>
+
+<!-- SLIDE 8: Pricing -->
+<div class="slide slide-gradient" id="slide8">
+    <div class="section-label">Fiyat Teklifi</div>
+    <h2>Size Özel <span class="highlight">Avantajlı</span> Fiyat</h2>
+    <div class="price-grid" style="margin-top: 20px;">
+        <div class="price-card">
+            <h3>TEK SEFERLİK SATIŞ</h3>
+            <div class="price-amount">60.000 <small>₺</small></div>
+            <p style="font-size: 14px; color: rgba(255,255,255,0.4); margin-top: 8px;">+ Aylık bakım: 2.500 ₺ (opsiyonel)</p>
+            <ul class="price-includes">
+                <li><i class="fas fa-check"></i> Tam çalışır e-ticaret sitesi</li>
+                <li><i class="fas fa-check"></i> 11.480 ürün yüklenmiş</li>
+                <li><i class="fas fa-check"></i> Admin paneli</li>
+                <li><i class="fas fa-check"></i> SSL + Domain</li>
+                <li><i class="fas fa-check"></i> DIA3 aktarımı</li>
+                <li><i class="fas fa-check"></i> 1 ay ücretsiz destek</li>
+            </ul>
+        </div>
+        <div class="price-card recommended">
+            <h3>AYLIK ABONELİK</h3>
+            <div class="price-amount">6.000 <small>₺/ay</small></div>
+            <p style="font-size: 14px; color: rgba(255,255,255,0.4); margin-top: 8px;">Minimum 12 ay → Yıllık: 72.000 ₺</p>
+            <ul class="price-includes">
+                <li><i class="fas fa-check"></i> Tüm site özellikleri</li>
+                <li><i class="fas fa-check"></i> Hosting dahil</li>
+                <li><i class="fas fa-check"></i> Sürekli bakım + güncelleme</li>
+                <li><i class="fas fa-check"></i> Teknik destek</li>
+                <li><i class="fas fa-check"></i> Yeni özellik geliştirme</li>
+                <li><i class="fas fa-check"></i> SEO takibi</li>
+            </ul>
+        </div>
+    </div>
+    <div class="slide-number">8 / 10</div>
+    <div class="logo-watermark">SALİM HIRDAVAT</div>
+</div>
+
+<!-- SLIDE 9: Future -->
+<div class="slide slide-dark" id="slide9">
+    <div class="section-label">Gelecek Planlar</div>
+    <h2>İleride Eklenecek <span class="highlight">Özellikler</span></h2>
+    <p style="margin-bottom: 20px;">Aşamalı geliştirme ile işinizi büyütün:</p>
+    <table>
+        <tr><th>Hizmet</th><th>Değer</th></tr>
+        <tr><td>🔍 Google SEO — "Sivas hırdavat" 1. sıra</td><td>5.000 - 10.000 ₺</td></tr>
+        <tr><td>💳 Online ödeme (iyzico / kredi kartı)</td><td>5.000 - 8.000 ₺</td></tr>
+        <tr><td>📊 DIA Cari Hesap — Online borç ödeme</td><td>15.000 - 25.000 ₺</td></tr>
+        <tr><td>🚚 Kurye takip sistemi</td><td>8.000 - 12.000 ₺</td></tr>
+        <tr><td>🔄 Otomatik DIA stok senkronizasyonu</td><td>10.000 - 15.000 ₺</td></tr>
+        <tr><td>📱 Mobil uygulama (iOS + Android)</td><td>30.000 - 50.000 ₺</td></tr>
+    </table>
+    <div style="margin-top: 30px; padding: 20px; background: rgba(76,175,80,0.1); border-radius: 12px; border: 1px solid rgba(76,175,80,0.3);">
+        <p style="font-size: 18px; color: #4CAF50; text-align: center; margin: 0;">
+            💡 <strong>Toplam potansiyel:</strong> 73.000 - 120.000 ₺ ek gelir fırsatı
+        </p>
+    </div>
+    <div class="slide-number">9 / 10</div>
+    <div class="logo-watermark">SALİM HIRDAVAT</div>
+</div>
+
+<!-- SLIDE 10: Delivery -->
+<div class="slide slide-red" id="slide10">
+    <div style="text-align: center;">
+        <h2 style="font-size: 44px; margin-bottom: 10px;">✅ TESLİMAT HAZIR</h2>
+        <p style="font-size: 20px; color: rgba(255,255,255,0.8); margin-bottom: 40px;">Site canlı, ürünler yüklü, her şey çalışıyor.</p>
+        
+        <div style="max-width: 600px; margin: 0 auto; text-align: left;">
+            <ul class="checklist">
+                <li><span class="check">✅</span> E-ticaret sitesi canlı</li>
+                <li><span class="check">✅</span> 11.480 ürün yüklendi</li>
+                <li><span class="check">✅</span> 69 kategori oluşturuldu</li>
+                <li><span class="check">✅</span> 436 marka eşleştirildi</li>
+                <li><span class="check">✅</span> Admin paneli aktif</li>
+                <li><span class="check">✅</span> Mobil uyumlu</li>
+                <li><span class="check">✅</span> SSL + HTTPS güvenlik</li>
+                <li><span class="check">✅</span> İletişim bilgileri güncel</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 40px;">
+            <div style="font-size: 28px; font-weight: 800; margin-bottom: 10px;">🌐 salimhırdavat.com</div>
+            <p style="font-size: 16px; color: rgba(255,255,255,0.6);">Hazırlayan: Ferhat Evci • Haziran 2026</p>
+        </div>
+    </div>
+    <div class="slide-number">10 / 10</div>
+</div>
+
+<!-- Navigation -->
+<div class="nav-bar">
+    <button class="nav-btn" onclick="prevSlide()" id="prevBtn">← Önceki</button>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <button class="nav-btn primary" onclick="nextSlide()" id="nextBtn">Sonraki →</button>
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+
+function showSlide(n) {
+    slides.forEach(s => s.classList.remove('active'));
+    slides[n].classList.add('active');
+    document.getElementById('progressFill').style.width = ((n + 1) / total * 100) + '%';
+    document.getElementById('prevBtn').style.opacity = n === 0 ? '0.3' : '1';
+    document.getElementById('nextBtn').textContent = n === total - 1 ? '🤝 Teslim' : 'Sonraki →';
+}
+
+function nextSlide() { if (current < total - 1) { current++; showSlide(current); } }
+function prevSlide() { if (current > 0) { current--; showSlide(current); } }
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+});
+
+// Touch support
+let touchStartX = 0;
+document.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
+document.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+});
+
+showSlide(0);
+</script>
+</body>
+</html>
