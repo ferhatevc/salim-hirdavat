@@ -8,7 +8,7 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = rtrim($uri, '/');
 
 // Statik dosyalar (CSS, JS, resim vs.)
-if (preg_match('/\.(css|js|png|jpg|jpeg|gif|webp|svg|ico|woff|woff2|ttf|eot|map)$/i', $uri)) {
+if (preg_match('/\.(css|js|png|jpg|jpeg|gif|webp|svg|ico|woff|woff2|ttf|eot|map|html|htm)$/i', $uri)) {
     return false; // PHP built-in server statik dosyayı kendisi serve eder
 }
 
