@@ -7,7 +7,7 @@
  * Fiyat formatlama (Türk Lirası)
  */
 function formatPrice($price) {
-    return number_format((float)$price, 2, ',', '.') . ' ' . CURRENCY_SYMBOL;
+    return number_format((float)$price, 2, ',', '.') . ' ₺';
 }
 
 /**
