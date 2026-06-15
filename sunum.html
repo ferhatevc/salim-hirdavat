@@ -298,6 +298,68 @@
             .nav-bar { display: none; }
             .slide { display: flex !important; page-break-after: always; }
         }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .slide { padding: 20px 20px 80px; }
+            h1 { font-size: 28px; }
+            h2 { font-size: 24px; margin-bottom: 16px; }
+            h3 { font-size: 18px; margin-bottom: 10px; }
+            p { font-size: 14px; line-height: 1.5; }
+            .subtitle { font-size: 16px; }
+            
+            .cover-content h1 { font-size: 36px; }
+            .cover-content .tagline { font-size: 18px; margin-bottom: 20px; }
+            .cover-badge { font-size: 11px; padding: 6px 14px; }
+            .cover-url { font-size: 14px; }
+            .divider { margin: 12px auto; }
+            
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+            .stat-card { padding: 16px 12px; }
+            .stat-card .stat-number { font-size: 28px; }
+            .stat-card .stat-label { font-size: 11px; }
+            .stat-card .stat-icon { width: 36px; height: 36px; font-size: 16px; margin-bottom: 8px; }
+            
+            .feature-grid { grid-template-columns: 1fr; gap: 8px; margin-top: 14px; }
+            .feature-item { padding: 10px 12px; }
+            .feature-item span { font-size: 13px; }
+            
+            .two-col { grid-template-columns: 1fr; gap: 20px; }
+            
+            table { font-size: 13px; }
+            th { padding: 10px 12px; font-size: 11px; }
+            td { padding: 10px 12px; font-size: 13px; }
+            
+            .price-grid { grid-template-columns: 1fr; gap: 16px; }
+            .price-card { padding: 24px 20px; }
+            .price-amount { font-size: 36px; }
+            .price-amount small { font-size: 16px; }
+            .price-includes li { font-size: 13px; padding: 6px 0; }
+            
+            .checklist li { padding: 12px 14px; font-size: 14px; }
+            
+            .section-label { font-size: 11px; padding: 4px 12px; margin-bottom: 10px; }
+            .logo-watermark { display: none; }
+            .slide-number { bottom: 65px; right: 20px; font-size: 12px; }
+            
+            .nav-bar { padding: 10px 16px; }
+            .nav-btn { padding: 8px 16px; font-size: 13px; }
+            .progress-bar { margin: 0 12px; }
+            
+            .slide::before { display: none; }
+            .badge-inline { font-size: 11px; padding: 3px 8px; }
+        }
+        
+        @media (max-width: 480px) {
+            .slide { padding: 16px 16px 75px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 20px; }
+            .cover-content h1 { font-size: 28px; }
+            .cover-content .tagline { font-size: 15px; }
+            .stats-grid { gap: 8px; }
+            .stat-card .stat-number { font-size: 24px; }
+            .price-amount { font-size: 30px; }
+        }
     </style>
 </head>
 <body>
